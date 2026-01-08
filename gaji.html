@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Hitung Gaji Karyawan</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+  <!-- INPUT -->
+  <div class="box">
+    <h2>Hitung Gaji Karyawan</h2>
+
+    <label>Gaji Pokok (Rp):</label>
+    <input type="number" id="gajiPokok" value="5000000">
+
+    <label>Jumlah Jam Lembur:</label>
+    <input type="number" id="jamLembur" value="20">
+
+    <button onclick="hitungGaji()">Hitung Gaji</button>
+  </div>
+
+  <!-- OUTPUT -->
+  <div class="box">
+    <p><b>Gaji Pokok:</b> <span id="outGajiPokok">Rp 5.000.000</span></p>
+    <p><b>Total Gaji Lembur:</b> <span id="outLembur">Rp 400.000</span></p>
+    <p><b>Gaji Kotor:</b> <span id="outKotor">Rp 5.400.000</span></p>
+    <p><b>Pajak:</b> <span id="outPajak">Rp 540.000</span></p>
+    <p><b>Gaji Bersih:</b> <span id="outBersih">Rp 4.860.000</span></p>
+  </div>
+
+</div>
+
+<script>
+function formatRupiah(angka) {
+  return "Rp " + angka.toLocaleString("id-ID");
+}
+
+function hitungGaji() {
+  let gajiPokok = parseInt(document.getElementById("gajiPokok").value);
+  let jamLembur = parseInt(document.getElementById("jamLembur").value);
+
+  let gajiLembur = jamLembur * 20000;
+  let gajiKotor = gajiPokok + gajiLembur;
+
+  let pajak = 0;
+  if (gajiKotor < 5000000) {
+    pajak = gajiKotor * 0.05;
+  } else if (gajiKotor <= 10000000) {
+    pajak = gajiKotor * 0.10;
+  } else {
+    pajak = gajiKotor * 0.15;
+  }
+
+  let gajiBersih = gajiKotor - pajak;
+
+  document.getElementById("outGajiPokok").innerHTML = formatRupiah(gajiPokok);
+  document.getElementById("outLembur").innerHTML = formatRupiah(gajiLembur);
+  document.getElementById("outKotor").innerHTML = formatRupiah(gajiKotor);
+  document.getElementById("outPajak").innerHTML = formatRupiah(pajak);
+  document.getElementById("outBersih").innerHTML = formatRupiah(gajiBersih);
+}
+</script>
+
+</body>
+</html>
